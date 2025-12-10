@@ -90,6 +90,11 @@ public class SpiralsView extends View {
 
     // Spiral class represents a single spiral
     static class Spiral {
+        private static final float ROTATION_SPEED = 0.5f;
+        private static final float ANGLE_STEP = 0.1f;
+        private static final float RADIUS_STEP = 0.5f;
+        private static final float MAX_ANGLE = 8 * (float)Math.PI; // ~4 complete rotations
+        
         private float centerX;
         private float centerY;
         private int color;
@@ -104,20 +109,17 @@ public class SpiralsView extends View {
             this.centerX = x;
             this.centerY = y;
             // Add some animation by slowly rotating
-            rotation += 0.5f;
+            rotation += ROTATION_SPEED;
         }
         
         public void draw(Canvas canvas, Paint paint) {
             paint.setColor(color);
             
             Path path = new Path();
-            float angleStep = 0.1f;
-            float radiusStep = 0.5f;
-            float maxAngle = 8 * (float)Math.PI;
             
             boolean first = true;
-            for (float angle = 0; angle < maxAngle; angle += angleStep) {
-                float radius = radiusStep * angle * scale;
+            for (float angle = 0; angle < MAX_ANGLE; angle += ANGLE_STEP) {
+                float radius = RADIUS_STEP * angle * scale;
                 float x = centerX + radius * (float)Math.cos(angle + rotation * 0.1f);
                 float y = centerY + radius * (float)Math.sin(angle + rotation * 0.1f);
                 

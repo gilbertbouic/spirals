@@ -205,7 +205,8 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bitmap = imageProxyToBitmap(imageProxy);
             if (bitmap != null) {
                 MPImage mpImage = new BitmapImageBuilder(bitmap).build();
-                long frameTime = System.currentTimeMillis();
+                // Use imageProxy timestamp for accurate frame timing
+                long frameTime = imageProxy.getImageInfo().getTimestamp() / 1000000; // Convert to milliseconds
                 handLandmarker.detectAsync(mpImage, frameTime);
             }
         } catch (Exception e) {
